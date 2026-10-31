@@ -24,7 +24,7 @@ export default function ContactPage() {
     if (!name || !email || !message) {
       toast({
         title: 'Please fill in all fields',
-        variant: 'danger',
+        variant: 'error',
       });
       return;
     }

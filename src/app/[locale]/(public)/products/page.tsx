@@ -34,50 +34,56 @@ export default async function ProductsPage({
           {
             id: '1',
             slug: 'personality-dynamics',
-            price: 499,
-            category: 'Psychological',
-            timeLimitMinutes: 20,
-            questionCount: 30,
-            locales: [
-              {
-                lang: locale,
-                title: 'Personality & Leadership Dynamics',
-                description:
-                  'Discover your core psychological traits, leadership aptitude, and social interaction style with deep AI diagnostic analysis.',
-              },
-            ],
+            priceInPaise: 49900,
+            currency: 'INR',
+            name: 'Personality & Leadership Dynamics',
+            description:
+              'Discover your core psychological traits, leadership aptitude, and social interaction style with deep AI diagnostic analysis.',
+            assessment: {
+              id: 'a1',
+              slug: 'personality-dynamics',
+              title: 'Personality & Leadership Dynamics',
+              description: 'Understand your behavioral archetype',
+              kind: 'OBJECTIVE',
+              timeLimitSeconds: 1200,
+              questionsCount: 30,
+            },
           },
           {
             id: '2',
             slug: 'career-aptitude',
-            price: 799,
-            category: 'Career Guidance',
-            timeLimitMinutes: 25,
-            questionCount: 35,
-            locales: [
-              {
-                lang: locale,
-                title: 'Career & Cognitive Aptitude',
-                description:
-                  'Map your cognitive strengths to high-growth career trajectories and strategic roles benchmarked for 2026.',
-              },
-            ],
+            priceInPaise: 79900,
+            currency: 'INR',
+            name: 'Career & Cognitive Aptitude',
+            description:
+              'Map your cognitive strengths to high-growth career trajectories and strategic roles benchmarked for 2026.',
+            assessment: {
+              id: 'a2',
+              slug: 'career-aptitude',
+              title: 'Career & Cognitive Aptitude',
+              description: 'Identify highest-fit roles',
+              kind: 'MIXED',
+              timeLimitSeconds: 1500,
+              questionsCount: 35,
+            },
           },
           {
             id: '3',
             slug: 'emotional-resilience',
-            price: 599,
-            category: 'Self Development',
-            timeLimitMinutes: 15,
-            questionCount: 25,
-            locales: [
-              {
-                lang: locale,
-                title: 'Emotional Resilience & EQ',
-                description:
-                  'Evaluate your emotional quotient, stress tolerance, adaptability, and workplace interpersonal dynamics.',
-              },
-            ],
+            priceInPaise: 59900,
+            currency: 'INR',
+            name: 'Emotional Resilience & EQ',
+            description:
+              'Evaluate your emotional quotient, stress tolerance, adaptability, and workplace interpersonal dynamics.',
+            assessment: {
+              id: 'a3',
+              slug: 'emotional-resilience',
+              title: 'Emotional Resilience & EQ',
+              description: 'Measure stress handling',
+              kind: 'OBJECTIVE',
+              timeLimitSeconds: 900,
+              questionsCount: 25,
+            },
           },
         ];
 

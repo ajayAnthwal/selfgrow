@@ -4,7 +4,7 @@ import React, { createContext, useContext, useState, useCallback } from 'react';
 import { cn } from '@/lib/utils/cn';
 import { CheckCircle2, AlertCircle, X, Info } from 'lucide-react';
 
-export type ToastType = 'success' | 'error' | 'info';
+export type ToastType = 'success' | 'error' | 'info' | 'danger' | 'warning';
 
 export interface ToastMessage {
   id: string;
@@ -15,6 +15,7 @@ export interface ToastMessage {
 
 export interface ToastOptions {
   message?: string;
+  description?: string;
   title?: string;
   type?: ToastType;
   variant?: ToastType;
@@ -44,8 +45,8 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       let title: string | undefined = fallbackTitle;
 
       if (typeof optionsOrMessage === 'object' && optionsOrMessage !== null) {
-        msg = optionsOrMessage.message || optionsOrMessage.title || '';
-        title = optionsOrMessage.message ? optionsOrMessage.title : undefined;
+        msg = optionsOrMessage.message || optionsOrMessage.description || optionsOrMessage.title || '';
+        title = optionsOrMessage.message || optionsOrMessage.description ? optionsOrMessage.title : undefined;
         type = optionsOrMessage.variant || optionsOrMessage.type || 'info';
       } else {
         msg = String(optionsOrMessage);
