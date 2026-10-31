@@ -18,17 +18,20 @@ export function Header() {
   const { user, isAuthenticated, isAdmin, isLoading, logout } = useAuth();
   const { toast } = useToast();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const handleLogout = async () => {
+    if (isLoggingOut) return;
+    setIsLoggingOut(true);
     try {
       await logout();
-      toast({
-        title: tAuth('logoutSuccess'),
-        variant: 'success',
-      });
-      router.push('/');
+      // Ensure cookie purge on client
+      document.cookie = 'accessToken=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+      document.cookie = 'refreshToken=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+      // Hard navigation ensures full state and session teardown
+      window.location.href = `/${locale}`;
     } catch {
-      router.push('/');
+      window.location.href = `/${locale}`;
     }
   };
 
@@ -105,6 +108,7 @@ export function Header() {
                 variant="ghost"
                 size="sm"
                 onClick={handleLogout}
+                isLoading={isLoggingOut}
                 className="text-body hover:text-danger hover:bg-danger-light"
                 aria-label={t('logout')}
               >
