@@ -51,23 +51,62 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/products" className="hover:text-primary transition-colors">
-                  Reports &amp; Assessments
+                  Assessments Catalog
+                </Link>
+              </li>
+              <li>
+                <Link href="/sample-report" className="hover:text-primary transition-colors">
+                  Interactive Sample Report
                 </Link>
               </li>
               <li>
                 <Link href="/account" className="hover:text-primary transition-colors">
-                  {tNav('account')}
+                  {tNav('dashboard') || 'My Dashboard'}
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Legal & Compliance */}
+          {/* Science & Solutions */}
           <div>
             <h4 className="text-xs font-bold uppercase tracking-wider text-heading mb-4">
-              Legal &amp; Privacy
+              Solutions &amp; Science
             </h4>
             <ul className="space-y-2.5 text-sm">
+              <li>
+                <Link href="/about" className="hover:text-primary transition-colors">
+                  About SelfGrow
+                </Link>
+              </li>
+              <li>
+                <Link href="/methodology" className="hover:text-primary transition-colors">
+                  Scientific Methodology
+                </Link>
+              </li>
+              <li>
+                <Link href="/enterprise" className="hover:text-primary transition-colors">
+                  Enterprise Teams
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Support & Legal */}
+          <div>
+            <h4 className="text-xs font-bold uppercase tracking-wider text-heading mb-4">
+              Support &amp; Legal
+            </h4>
+            <ul className="space-y-2.5 text-sm">
+              <li>
+                <Link href="/faq" className="hover:text-primary transition-colors">
+                  FAQ &amp; Help Center
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="hover:text-primary transition-colors">
+                  {tStatic('contactTitle')}
+                </Link>
+              </li>
               <li>
                 <Link href="/privacy" className="hover:text-primary transition-colors">
                   {tStatic('privacyTitle')}
@@ -77,23 +116,6 @@ export function Footer() {
                 <Link href="/terms" className="hover:text-primary transition-colors">
                   {tStatic('termsTitle')}
                 </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Support */}
-          <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-heading mb-4">
-              Support
-            </h4>
-            <ul className="space-y-2.5 text-sm">
-              <li>
-                <Link href="/contact" className="hover:text-primary transition-colors">
-                  {tStatic('contactTitle')}
-                </Link>
-              </li>
-              <li className="text-xs text-muted leading-relaxed">
-                Need assistance? Our support team responds within 24 hours.
               </li>
             </ul>
           </div>

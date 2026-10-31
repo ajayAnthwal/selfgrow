@@ -34,8 +34,10 @@ export function Header() {
 
   const navLinks = [
     { href: '/', label: t('home') },
-    { href: '/products', label: 'Reports' },
-    { href: '/contact', label: 'Contact' },
+    { href: '/products', label: 'Assessments' },
+    { href: '/methodology', label: 'Methodology' },
+    { href: '/enterprise', label: 'Enterprise' },
+    { href: '/about', label: 'About' },
   ];
 
   if (pathname.startsWith('/admin') || pathname.startsWith('/assessment/attempt')) {
