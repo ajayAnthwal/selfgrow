@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
 import { Link, useRouter } from '@/i18n/routing';
 import { loginSchema, LoginInput } from '@/features/auth/auth.schema';
@@ -19,12 +19,12 @@ import { mapErrorCode } from '@/lib/utils/errors';
 import { ShieldAlert, Sparkles, CheckCircle2, ShieldCheck, ShoppingBag } from 'lucide-react';
 
 export default function LoginPage() {
+  const locale = useLocale();
   const tAuth = useTranslations('auth');
   const tErrors = useTranslations('errors');
   const router = useRouter();
   const searchParams = useSearchParams();
   const explicitRedirect = searchParams.get('redirect');
-  const redirectUrl = explicitRedirect || '/account';
   const reason = searchParams.get('reason');
   const productName = searchParams.get('product');
 
@@ -47,14 +47,20 @@ export default function LoginPage() {
     setServerError(null);
     try {
       const loggedUser = await login(values);
-      const target = explicitRedirect 
+      
+      // Determine destination strictly based on user's authenticated role
+      const rawDestination = explicitRedirect 
         ? explicitRedirect 
-        : loggedUser?.role === 'ADMIN' 
+        : (loggedUser?.role === 'ADMIN' || (loggedUser as any)?.role === 'SUPERADMIN') 
           ? '/admin' 
           : '/account';
 
-      // Full window navigation guarantees cookies are re-read by Next.js SSR middleware
-      window.location.href = target;
+      const localizedTarget = rawDestination.startsWith('http') || rawDestination.startsWith(`/${locale}`)
+        ? rawDestination
+        : `/${locale}${rawDestination.startsWith('/') ? rawDestination : `/${rawDestination}`}`;
+
+      // Full window navigation guarantees HttpOnly cookies are actively picked up by Next.js SSR middleware
+      window.location.href = localizedTarget;
     } catch (err) {
       if (err instanceof ApiClientError) {
         const errorKey = mapErrorCode(err.code);
