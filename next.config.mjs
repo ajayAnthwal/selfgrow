@@ -40,18 +40,19 @@ const nextConfig = {
     ];
   },
   async headers() {
+    const backendUrl = process.env.BACKEND_URL || 'http://localhost:5000';
     return [
       {
         source: '/:path*',
         headers: [
           {
             key: 'Content-Security-Policy',
-            // Allow only checkout.razorpay.com (script, frame, connect) plus self
+            // Allow only checkout.razorpay.com (script, frame, connect) plus self and backend URL
             value: [
               "default-src 'self'",
               "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://checkout.razorpay.com",
               "frame-src 'self' https://api.razorpay.com https://checkout.razorpay.com",
-              "connect-src 'self' https://api.razorpay.com https://lumberjack.razorpay.com http://localhost:5000",
+              `connect-src 'self' https://api.razorpay.com https://lumberjack.razorpay.com http://localhost:5000 https://selfgrow-backend.onrender.com ${backendUrl}`,
               "img-src 'self' data: https://*.razorpay.com",
               "style-src 'self' 'unsafe-inline'",
               "font-src 'self' data: https://fonts.gstatic.com",
