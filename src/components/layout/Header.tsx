@@ -25,13 +25,19 @@ export function Header() {
     setIsLoggingOut(true);
     try {
       await logout();
-      // Ensure cookie purge on client
-      document.cookie = 'accessToken=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-      document.cookie = 'refreshToken=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-      // Hard navigation ensures full state and session teardown
-      window.location.href = `/${locale}`;
     } catch {
-      window.location.href = `/${locale}`;
+      // Ignore
+    } finally {
+      // Ensure cookie purge on client
+      document.cookie = 'accessToken=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT; Max-Age=0;';
+      document.cookie = 'refreshToken=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT; Max-Age=0;';
+      document.cookie = 'token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT; Max-Age=0;';
+      
+      if (typeof window !== 'undefined') {
+        localStorage.clear();
+        sessionStorage.clear();
+        window.location.replace(`/${locale}`);
+      }
     }
   };
 

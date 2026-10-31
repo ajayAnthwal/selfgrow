@@ -92,7 +92,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const logout = async () => {
-    await logoutMutation.mutateAsync();
+    try {
+      await api.post('/auth/logout', {}, { skipAuthRefresh: true });
+    } catch {
+      // Ignore network/server errors during logout
+    } finally {
+      queryClient.setQueryData(['auth', 'me'], null);
+      queryClient.removeQueries({ queryKey: ['auth'] });
+      queryClient.clear();
+    }
   };
 
   const refetchUser = async () => {
