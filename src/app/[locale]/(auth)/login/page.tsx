@@ -25,6 +25,7 @@ export default function LoginPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const explicitRedirect = searchParams.get('redirect');
+  const redirectUrl = explicitRedirect || '/account';
   const reason = searchParams.get('reason');
   const productName = searchParams.get('product');
 
