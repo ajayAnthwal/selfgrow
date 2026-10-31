@@ -24,7 +24,8 @@ export default function RegisterPage() {
   const locale = useLocale();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const redirectUrl = searchParams.get('redirect') || '/products';
+  const explicitRedirect = searchParams.get('redirect');
+  const redirectUrl = explicitRedirect || '/account';
   const reason = searchParams.get('reason');
   const productName = searchParams.get('product');
 
@@ -53,8 +54,14 @@ export default function RegisterPage() {
   const onSubmit = async (values: RegisterInput) => {
     setServerError(null);
     try {
-      await registerAuth(values);
-      router.push(redirectUrl);
+      const user = await registerAuth(values);
+      if (explicitRedirect) {
+        router.push(explicitRedirect);
+      } else if (user?.role === 'ADMIN') {
+        router.push('/admin');
+      } else {
+        router.push('/account');
+      }
     } catch (err) {
       if (err instanceof ApiClientError) {
         const errorKey = mapErrorCode(err.code);

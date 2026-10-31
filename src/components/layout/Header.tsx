@@ -87,8 +87,8 @@ export function Header() {
                 href="/account"
                 className="inline-flex items-center text-[14px] font-semibold text-heading hover:text-primary transition-colors px-3 py-1.5 rounded-sm hover:bg-surface-secondary"
               >
-                <User className="w-4 h-4 mr-2 text-primary" />
-                {t('account')}
+                <LayoutDashboard className="w-4 h-4 mr-2 text-primary" />
+                {t('dashboard') || 'My Dashboard'}
               </Link>
 
               {isAdmin && (
@@ -167,8 +167,8 @@ export function Header() {
                   onClick={() => setMobileMenuOpen(false)}
                   className="flex items-center px-3 py-2 text-sm font-semibold text-heading rounded-sm hover:bg-surface-secondary"
                 >
-                  <User className="w-4 h-4 mr-2.5 text-primary" />
-                  {t('account')}
+                  <LayoutDashboard className="w-4 h-4 mr-2.5 text-primary" />
+                  {t('dashboard') || 'My Dashboard'}
                 </Link>
                 {isAdmin && (
                   <Link

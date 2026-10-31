@@ -23,7 +23,8 @@ export default function LoginPage() {
   const tErrors = useTranslations('errors');
   const router = useRouter();
   const searchParams = useSearchParams();
-  const redirectUrl = searchParams.get('redirect') || '/products';
+  const explicitRedirect = searchParams.get('redirect');
+  const redirectUrl = explicitRedirect || '/account';
   const reason = searchParams.get('reason');
   const productName = searchParams.get('product');
 
@@ -46,13 +47,12 @@ export default function LoginPage() {
     setServerError(null);
     try {
       const loggedUser = await login(values);
-      const explicitRedirect = searchParams.get('redirect');
       if (explicitRedirect) {
         router.push(explicitRedirect);
       } else if (loggedUser?.role === 'ADMIN') {
         router.push('/admin');
       } else {
-        router.push(redirectUrl);
+        router.push('/account');
       }
     } catch (err) {
       if (err instanceof ApiClientError) {
