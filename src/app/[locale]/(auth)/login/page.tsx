@@ -47,13 +47,14 @@ export default function LoginPage() {
     setServerError(null);
     try {
       const loggedUser = await login(values);
-      if (explicitRedirect) {
-        router.push(explicitRedirect);
-      } else if (loggedUser?.role === 'ADMIN') {
-        router.push('/admin');
-      } else {
-        router.push('/account');
-      }
+      const target = explicitRedirect 
+        ? explicitRedirect 
+        : loggedUser?.role === 'ADMIN' 
+          ? '/admin' 
+          : '/account';
+
+      // Full window navigation guarantees cookies are re-read by Next.js SSR middleware
+      window.location.href = target;
     } catch (err) {
       if (err instanceof ApiClientError) {
         const errorKey = mapErrorCode(err.code);
