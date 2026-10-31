@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-inter: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-devanagari: 'Noto Sans Devanagari', 'Inter', -apple-system, sans-serif;
+  }
+
+  body {
+    @apply bg-background text-body font-sans antialiased selection:bg-primary selection:text-white min-h-screen;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    letter-spacing: -0.01em;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-heading font-bold tracking-tight;
+  }
+
+  /* Hindi typography accommodation */
+  [lang="hi"], :lang(hi) {
+    line-height: 1.6;
+  }
+}
+
+@layer utilities {
+  .text-heading {
+    color: #142B50;
+  }
+  .text-body {
+    color: #526581;
+  }
+  .text-muted {
+    color: #8291A8;
+  }
+}
